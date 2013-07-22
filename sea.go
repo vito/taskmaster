@@ -1,8 +1,8 @@
 package taskmaster
 
 import (
-	"github.com/vito/gordon"
 	"errors"
+	"github.com/vito/gordon"
 )
 
 type SEA struct {
@@ -12,8 +12,8 @@ type SEA struct {
 
 func NewSEA(wardenSocketPath string) *SEA {
 	return &SEA{
-    WardenSocketPath: wardenSocketPath,
-		Registry: NewRegistry(),
+		WardenSocketPath: wardenSocketPath,
+		Registry:         NewRegistry(),
 	}
 }
 
@@ -60,12 +60,12 @@ func (s *SEA) Start(id, publicKey string) error {
 }
 
 func (s *SEA) Stop(id string) error {
-  session := s.Registry.Lookup(id)
-  if session == nil {
-    return errors.New("unknown session")
-  }
+	session := s.Registry.Lookup(id)
+	if session == nil {
+		return errors.New("unknown session")
+	}
 
-  s.Registry.Unregister(id)
+	s.Registry.Unregister(id)
 
-  return session.Terminate()
+	return session.Terminate()
 }

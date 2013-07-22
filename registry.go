@@ -1,34 +1,34 @@
 package taskmaster
 
 import (
-  "sync"
+	"sync"
 )
 
 type Registry struct {
-  sessions map[string]*Session
-  writeLock sync.Mutex
+	sessions  map[string]*Session
+	writeLock sync.Mutex
 }
 
 func NewRegistry() *Registry {
-  return &Registry{
-    sessions: make(map[string]*Session),
-  }
+	return &Registry{
+		sessions: make(map[string]*Session),
+	}
 }
 
 func (r *Registry) Register(id string, session *Session) {
-  r.writeLock.Lock()
-  defer r.writeLock.Unlock()
+	r.writeLock.Lock()
+	defer r.writeLock.Unlock()
 
-  r.sessions[id] = session
+	r.sessions[id] = session
 }
 
 func (r *Registry) Unregister(id string) {
-  r.writeLock.Lock()
-  defer r.writeLock.Unlock()
+	r.writeLock.Lock()
+	defer r.writeLock.Unlock()
 
-  delete(r.sessions, id)
+	delete(r.sessions, id)
 }
 
 func (r *Registry) Lookup(id string) *Session {
-  return r.sessions[id]
+	return r.sessions[id]
 }

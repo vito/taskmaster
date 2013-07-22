@@ -23,7 +23,7 @@ type sshStopMessage struct {
 func main() {
 	fmt.Println("Waiting for connections...")
 
-  sea := taskmaster.NewSEA("/tmp/warden.sock")
+	sea := taskmaster.NewSEA("/tmp/warden.sock")
 
 	nats := yagnats.NewClient()
 
@@ -40,7 +40,7 @@ func main() {
 			return
 		}
 
-    err = sea.Start(start.Session, start.PublicKey)
+		err = sea.Start(start.Session, start.PublicKey)
 		if err != nil {
 			fmt.Println("Failed to start SSH session:", err)
 			return
@@ -58,26 +58,26 @@ func main() {
 
 		err = sea.Stop(stop.Session)
 		if err != nil {
-      fmt.Println("Tailed to stop SSH session:", err)
+			fmt.Println("Tailed to stop SSH session:", err)
 			return
 		}
 	})
 
-  //go func() {
-    //for {
-      //for id, session := range sessions {
-        //fmt.Println(id, session.Port)
-      //}
+	//go func() {
+	//for {
+	//for id, session := range sessions {
+	//fmt.Println(id, session.Port)
+	//}
 
-      //time.Sleep(1 * time.Second)
-    //}
-  //}()
+	//time.Sleep(1 * time.Second)
+	//}
+	//}()
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
 	<-c
 
-  //for _, session := range sessions {
-    //session.Container.Destroy()
-  //}
+	//for _, session := range sessions {
+	//session.Container.Destroy()
+	//}
 }

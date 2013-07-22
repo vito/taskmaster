@@ -1,7 +1,7 @@
 package taskmaster
 
 import (
-  "fmt"
+	"fmt"
 )
 
 type Session struct {
@@ -21,7 +21,7 @@ func (s *Session) InsertPubkey(publicKey string) error {
 }
 
 func (s *Session) StartSSHServer() error {
-  _, err := s.Container.Spawn(
+	_, err := s.Container.Spawn(
 		fmt.Sprintf(`
       set -e
       export PATH=/usr/local/bin:$PATH
@@ -34,5 +34,5 @@ func (s *Session) StartSSHServer() error {
 }
 
 func (s *Session) Terminate() error {
-  return s.Container.Destroy()
+	return s.Container.Destroy()
 }
